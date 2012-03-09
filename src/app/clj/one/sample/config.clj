@@ -19,7 +19,10 @@
                    "goog.require('one.sample.controller');"
                    "goog.require('one.sample.history');"
                    "goog.require('one.sample.logging');"
-                   "one.sample.core.start();one.sample.core.repl();"]
+                   "goog.require('one.sample.util');"
+                   "goog.require('one.sample.mapview');"
+                   ;;"one.sample.core.start();one.sample.core.repl();"
+                                      "one.sample.core.repl();"]
           :prod-js ["one.sample.core.start();"]
           :reload-clj ["/one/host_page"
                        "/one/reload"

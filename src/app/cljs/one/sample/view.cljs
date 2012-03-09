@@ -9,7 +9,8 @@
             [goog.events.KeyHandler :as key-handler]
             [clojure.browser.event :as event]
             [one.dispatch :as dispatch]
-            [one.sample.animation :as fx]))
+            [one.sample.animation :as fx]
+            [one.sample.mapview :as maps]))
 
 (def ^{:doc "A map which contains chunks of HTML which may be used
   when rendering views."}
@@ -100,6 +101,7 @@
     (event/listen field
                   "keyup"
                   #(dispatch/fire [:field-changed field-id] (value field)))
+    ;;(goog.events/listen js/window "load" maps/map-load)
     (event/listen keyboard
                   "key"
                   (fn [e] (when (= (.-keyCode e) key-codes/ENTER)
@@ -111,13 +113,17 @@
   and renders a view based on the value of the `:state` key."
   :state)
 
+;; (defmethod render :init [_]
+;;   (fx/initialize-views (:form snippets) (:greeting snippets))
+;;   (add-input-event-listeners "name-input")
+;;   (event/listen (by-id "greet-button")
+;;                 "click"
+;;                 #(dispatch/fire :greeting
+;;                                 {:name (value (by-id "name-input"))})))
+
 (defmethod render :init [_]
-  (fx/initialize-views (:form snippets) (:greeting snippets))
-  (add-input-event-listeners "name-input")
-  (event/listen (by-id "greet-button")
-                "click"
-                #(dispatch/fire :greeting
-                                {:name (value (by-id "name-input"))})))
+  (fx/initialize-map-view (:map_canvas snippets))
+  (goog.events/listen js/window "load" maps/map-load))
 
 (defmethod render :form [{:keys [state error name]}]
   (fx/show-form)

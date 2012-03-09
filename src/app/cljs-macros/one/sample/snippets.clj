@@ -12,4 +12,5 @@
   design templates."
   []
   {:form (snippet "form.html" [:div#form])
+   :map_canvas (snippet "mapview.html" [:div#map_canvas])
    :greeting (snippet "greeting.html" [:div#greeting])})

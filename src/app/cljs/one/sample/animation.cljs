@@ -9,6 +9,7 @@
             [goog.style :as style]))
 
 (def form "//div[@id='form']")
+(def map_canvas "//div[@id='map_canvas']")
 (def cloud "//div[@id='greeting']")
 (def label "//label[@id='name-input-label']/span")
 
@@ -31,10 +32,26 @@
     (set-styles! (by-id "greet-button") {:opacity "0.2" :disabled true})
     (play form form-in {:after #(.focus (by-id "name-input") ())})))
 
+(defn initialize-map-view
+  "Accepts the map view HTML and adds it to the
+  page. This function must be
+  run before any other view functions. It may be called from any state
+  to reset the UI."
+  [map-html]
+  (let [content (xpath "//div[@id='content']")]
+    (destroy-children! content)
+    (set-html! content map-html)))
+
 (comment ;; Try it
 
   (initialize-views (:form one.sample.view/snippets)
                     (:greeting one.sample.view/snippets))
+  
+  )
+
+(comment ;; Try it
+
+  (initialize-map-view (:map_canvas one.sample.view/snippets))
   
   )
 
